@@ -12,11 +12,11 @@ public class Package {
     }
 
     // Fields
-    private String trackingId;
-    private String description;
-    private double weight;
-    private String destination;
-    private String mailedDate; // could be in different format
+    final private String trackingId;
+    final private String description;
+    final private double weight;
+    final private String destination;
+    final private String mailedDate; // could be in different format
     private String expectedArrivalDate;
     private Status status;
     private String lastUpdated;

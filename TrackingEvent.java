@@ -6,10 +6,10 @@ easier to access when searching package by ID
 
 public class TrackingEvent {
     // Fields
-    private String trackingId;
-    private Package.Status status;
-    private String timestamp;
-    private String note;
+    final private String trackingId;
+    final private Package.Status status;
+    final private String timestamp;
+    final private String note;
 
     // Constructor
     public TrackingEvent(String trackingId, Package.Status status, String timestamp, String note) {
