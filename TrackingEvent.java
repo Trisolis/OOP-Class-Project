@@ -5,9 +5,23 @@ easier to access when searching package by ID
 */
 
 public class TrackingEvent {
-    // TODO: Add fields (trackingId, status, timestamp, note)
-    
-    // TODO: Add constructor
+    // Fields
+    private String trackingId;
+    private Package.Status status;
+    private String timestamp;
+    private String note;
 
-    // TODO: Add getters and setters
+    // Constructor
+    public TrackingEvent(String trackingId, Package.Status status, String timestamp, String note) {
+        this.trackingId = trackingId;
+        this.status = status;
+        this.timestamp = timestamp;
+        this.note = note;
+    }
+
+    // Getters
+    public String getTrackingId() { return trackingId; }
+    public Package.Status getStatus()     { return status; }
+    public String getTimestamp()  { return timestamp; }
+    public String getNote()       { return note; }
 }
