@@ -8,5 +8,5 @@ public class PackageRepository {
     
     // TODO: Add constructor
 
-    // TODO: Add getters and setters
+    // TODO: Add getters and setters (see PackageService.java for necessary functions as well)
 }
