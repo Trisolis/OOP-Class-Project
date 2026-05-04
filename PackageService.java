@@ -22,14 +22,14 @@ public class PackageService {
                               LocalDate mailedDate, LocalDate expectedArrivalDate) {
         String trackingId = "PKG-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase(); // like this style of ID to use
         CourierPackage pkg = new CourierPackage(trackingId, description, weight, destination, mailedDate, expectedArrivalDate);
-        // save pkg to db
+        repository.save(pkg);
         return pkg;
 
     }
 
     public boolean updateStatus(String trackingId, CourierPackage.Status newStatus, 
                                 LocalDate newExpectedArrivalDate, String note) {
-        // find pkg through repository
+        CourierPackage pkg = repository.findById(trackingId);
         if (pkg == null) return false;
 
         pkg.setStatus(newStatus);
@@ -41,20 +41,20 @@ public class PackageService {
         TrackingEvent event = new TrackingEvent(trackingId, newStatus, LocalDateTime.now(), note);
         pkg.addTrackingEvent(event);
 
-        // update pkg in repository
+        repository.update(pkg);
         return true;
 
     }
 
-    public CourierPackage findById() {
-        // should call to repository function
+    public CourierPackage findById(String trackingId) {
+        return repository.findById(trackingId);
     }
 
     public List<CourierPackage> getAllPackages() {
-        // should call to repository function
+        return repository.findAll();
     }
 
-    public boolean removePackage() {
-        // should call to repository function
+    public boolean removePackage(String trackingId) {
+        return repository.delete(trackingId);
     }
 }

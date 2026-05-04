@@ -1,5 +1,6 @@
-import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class Main {
                     System.out.println("Enter weight (kg)");
                     double weight = Double.parseDouble(sc.nextLine().trim()); // apparently can't use nextDouble() or it causes errors
                     double estimate = estimator.estimate(weight);
-                    // System.out.println("Estimated cost: ___");
+                    System.out.printf("Estimated cost: $%.2f", estimate);
                 }
                 case "2" -> {
                     System.out.print("Description: ");
@@ -66,7 +67,16 @@ public class Main {
                         System.out.println("Np packages found.");
                     }
                     else {
-                        // Print table w printf
+                        System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
+                                "Tracking ID", "Description", "Weight", "Destination",
+                                "Status", "ETA", "Last Updated");
+                        System.out.println("-".repeat(121));
+                        for (CourierPackage p : all) {
+                            System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
+                                    p.getTrackingId(), p.getDescription(), p.getWeight(),
+                                    p.getDestination(), p.getStatus(), 
+                                    p.getExpectedArrivalDate(), p.getLastUpdated());
+                        }
                     }
                 }
                 case "5" -> {
@@ -77,12 +87,24 @@ public class Main {
                         System.out.println("Package not found.");
                     }
                     else {
-                        // print out package info here properly formatted
+                        System.out.println("\n--- Package Details ---");
+                        System.out.println("Tracking ID:  " + pkg.getTrackingId());
+                        System.out.println("Description:  " + pkg.getDescription());
+                        System.out.println("Weight:       " + pkg.getWeight() + " kg");
+                        System.out.println("Destination:  " + pkg.getDestination());
+                        System.out.println("Mailed:       " + pkg.getMailedDate());
+                        System.out.println("ETA:          " + pkg.getExpectedArrivalDate());
+                        System.out.println("Status:       " + pkg.getStatus());
+                        System.out.println("Last Updated: " + pkg.getLastUpdated());
+                        System.out.println("\n--- Tracking History ---");
                         if (pkg.getTrackingHistory().isEmpty()) {
                             System.out.println("No events recorded");
                         }
                         else {
-                            // print another table of trackingevents
+                            for (TrackingEvent e : pkg.getTrackingHistory()) {
+                                System.out.printf("%s | %s | %s%n",
+                                        e.getTimestamp(), e.getStatus(), e.getNote());
+                            }
                         }
                     }
                 }
@@ -101,6 +123,5 @@ public class Main {
                 }
             }
         }
-        sc.close();
     }
 }
