@@ -18,18 +18,18 @@ public class PackageRepository {
     }
 
     public CourierPackage findById(String trackingId) {
-        // TODO: Find and return package related to its trackingId, return null if not found
+        // Find and return package related to its trackingId, return null if not found
         if (map.containsKey(trackingId)) return map.get(trackingId);
         return null;
     }
 
     public List<CourierPackage> findAll() {
-        // TODO: Return all packages in the db as a list of CourierPackage objects
+        // Return all packages in the db as a list of CourierPackage objects
         return new ArrayList<>(map.values());
     }
 
     public boolean delete(String trackingId) {
-        // TODO: Delete package related to its trackingId, and return false if nothing is deleted (i.e. ID doesn't exist)
+        // Delete package related to its trackingId, and return false if nothing is deleted (i.e. ID doesn't exist)
         if (map.containsKey(trackingId)) {
             map.remove(trackingId);
             return true;
