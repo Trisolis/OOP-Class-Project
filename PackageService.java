@@ -73,6 +73,7 @@ public class PackageService {
                 break;
             case "5":
                 list.sort((a, b) -> a.getLastUpdated().compareTo(b.getLastUpdated()));
+                break;
             default:
                 throw new AssertionError();
         }
