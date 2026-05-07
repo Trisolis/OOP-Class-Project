@@ -72,15 +72,30 @@ public class Main {
                         System.out.println("Np packages found.");
                     }
                     else {
-                        System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
-                                "Tracking ID", "Description", "Weight", "Destination",
-                                "Status", "ETA", "Last Updated");
-                        System.out.println("-".repeat(121));
-                        for (CourierPackage p : all) {
+                        while (true) {
                             System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
-                                    p.getTrackingId(), p.getDescription(), p.getWeight(),
-                                    p.getDestination(), p.getStatus(), 
-                                    p.getExpectedArrivalDate(), p.getLastUpdated());
+                                    "Tracking ID", "Description", "Weight", "Destination",
+                                    "Status", "ETA", "Last Updated");
+                            System.out.println("-".repeat(121));
+                            for (CourierPackage p : all) {
+                                System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
+                                        p.getTrackingId(), p.getDescription(), p.getWeight(),
+                                        p.getDestination(), p.getStatus(), 
+                                        p.getExpectedArrivalDate(), p.getLastUpdated());
+                            }
+                            System.out.println("Do you want to sort this table by columns? Select an option below.");
+                            System.out.println("""
+                                    --- Options ---
+                                    1. Weight
+                                    2. Destination
+                                    3. Status
+                                    4. ETA
+                                    5. Last Updated
+                                    6. Return to Main Interface
+                                    """);
+                            String option = sc.nextLine().trim();
+                            if (option.equals("6")) break;
+                            all = service.sortAllPackages(option);
                         }
                     }
                 }
