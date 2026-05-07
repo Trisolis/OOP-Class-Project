@@ -69,7 +69,7 @@ public class Main {
                     List<CourierPackage> all = service.getAllPackages();
 
                     if (all.isEmpty()) {
-                        System.out.println("Np packages found.");
+                        System.out.println("No packages found.");
                     }
                     else {
                         while (true) {
@@ -83,6 +83,7 @@ public class Main {
                                         p.getDestination(), p.getStatus(), 
                                         p.getExpectedArrivalDate(), p.getLastUpdated());
                             }
+                            System.out.println();
                             System.out.println("Do you want to sort this table by columns? Select an option below.");
                             System.out.println("""
                                     --- Options ---
@@ -91,10 +92,10 @@ public class Main {
                                     3. Status
                                     4. ETA
                                     5. Last Updated
-                                    6. Return to Main Interface
+                                    0. Return to Main Interface
                                     """);
                             String option = sc.nextLine().trim();
-                            if (option.equals("6")) break;
+                            if (option.equals("0")) break;
                             all = service.sortAllPackages(option);
                         }
                     }
