@@ -31,7 +31,7 @@ public class Main {
                     System.out.println("Enter weight (kg)");
                     double weight = Double.parseDouble(sc.nextLine().trim()); // apparently can't use nextDouble() or it causes errors
                     double estimate = estimator.estimate(weight);
-                    System.out.printf("Estimated cost: $%.2f", estimate);
+                    System.out.printf("Estimated cost: $%.2f\n", estimate);
                 }
                 case "2" -> {
                     System.out.print("Description: ");
@@ -50,15 +50,20 @@ public class Main {
                 case "3" -> {
                     System.out.print("Tracking ID: ");
                     String id = sc.nextLine().trim();
-                    System.out.print("What should the new status be? (PACKED, IN_TRANSIT, DELVIERED)");
-                    CourierPackage.Status status = CourierPackage.Status.valueOf(sc.nextLine().trim().toUpperCase()); // valueOf to convert to objec
-                    System.out.print("New expected arrival (YYYY-MM-DD, or press Enter to skip)");
-                    String arr = sc.nextLine().trim();
-                    LocalDate arrivalDate = arr.isEmpty() ? null : LocalDate.parse(arr);
-                    System.out.print("Note? ");
-                    String note = sc.nextLine().trim();
-                    boolean success = service.updateStatus(id, status, arrivalDate, note);
-                    System.out.println(success ? "Status updated." : "Package not found.");
+                    if (service.findById(id) == null) {
+                        System.out.println("Package not found."); // so it doesn't ask the rest of the questions if nonexistent
+                    }
+                    else {
+                        System.out.print("What should the new status be? (PACKED, IN_TRANSIT, DELIVERED)");
+                        CourierPackage.Status status = CourierPackage.Status.valueOf(sc.nextLine().trim().toUpperCase()); // valueOf to convert to objec
+                        System.out.print("New expected arrival (YYYY-MM-DD, or press Enter to skip)");
+                        String arr = sc.nextLine().trim();
+                        LocalDate arrivalDate = arr.isEmpty() ? null : LocalDate.parse(arr);
+                        System.out.print("Note? ");
+                        String note = sc.nextLine().trim();
+                        boolean success = service.updateStatus(id, status, arrivalDate, note);
+                        System.out.println(success ? "Status updated." : "Package not found.");
+                    }
                 }
                 case "4" -> {
                     List<CourierPackage> all = service.getAllPackages();
