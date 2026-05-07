@@ -28,14 +28,9 @@ public class PackageRepository {
         return new ArrayList<>(map.values());
     }
 
-    public void update(CourierPackage pkg) {
-        // TODO: Update the matching package in the db with its updated fields, and insert new TrackingEvent for status change
-        // Looking at the implementaiton of UpdateStatus, it seems like this method isn't needed?
-    }
-
     public boolean delete(String trackingId) {
         // TODO: Delete package related to its trackingId, and return false if nothing is deleted (i.e. ID doesn't exist)
-        if (map.containsKey(map)) {
+        if (map.containsKey(trackingId)) {
             map.remove(trackingId);
             return true;
         }

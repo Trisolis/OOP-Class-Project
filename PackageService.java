@@ -41,7 +41,6 @@ public class PackageService {
         TrackingEvent event = new TrackingEvent(trackingId, newStatus, LocalDateTime.now(), note);
         pkg.addTrackingEvent(event);
 
-        repository.update(pkg);
         return true;
 
     }
