@@ -5,8 +5,9 @@ PackageService figures out logic and talks to repository
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
-import java.util.UUID; 
+import java.util.UUID;
 
 public class PackageService {
     // Fields
@@ -51,6 +52,33 @@ public class PackageService {
 
     public List<CourierPackage> getAllPackages() {
         return repository.findAll();
+    }
+
+    public List<CourierPackage> sortAllPackages(String type) {
+        List<CourierPackage> list = repository.findAll();
+        
+        switch (type) {
+            case "1":
+                // sorts by weight ascending
+                list.sort((a, b) -> Double.compare(a.getWeight(), b.getWeight()));
+                break;
+            case "2":
+                list.sort((a, b) -> a.getDestination().compareTo(b.getDestination()));
+                break;
+            case "3":
+                list.sort(Comparator.comparing(CourierPackage::getStatus));
+                break;
+            case "4":
+                list.sort((a, b) -> a.getExpectedArrivalDate().compareTo(b.getExpectedArrivalDate()));
+                break;
+            case "5":
+                list.sort((a, b) -> a.getLastUpdated().compareTo(b.getLastUpdated()));
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+        return list;
     }
 
     public boolean removePackage(String trackingId) {
