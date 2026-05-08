@@ -7,7 +7,6 @@ public class CostEstimator {
     private static final double RATE_PER_KG = 2.50;
 
     public double estimate(double weight) {
-        // Placeholder: base + (weight * rate)
         return BASE_RATE + (weight * RATE_PER_KG);
     }
 }

@@ -21,14 +21,13 @@ public class Main {
                 4. Display all packages
                 5. Search by tracking ID
                 6. Remove package
-                0. Exit
-                """);
+                0. Exit""");
 
             String choice = sc.nextLine().trim();
 
             switch (choice) {
                 case "1" -> {
-                    System.out.println("Enter weight (kg)");
+                    System.out.print("Enter weight (kg): ");
                     double weight = Double.parseDouble(sc.nextLine().trim()); // apparently can't use nextDouble() or it causes errors
                     double estimate = estimator.estimate(weight);
                     System.out.printf("Estimated cost: $%.2f\n", estimate);
@@ -54,12 +53,12 @@ public class Main {
                         System.out.println("Package not found."); // so it doesn't ask the rest of the questions if nonexistent
                     }
                     else {
-                        System.out.print("What should the new status be? (PACKED, IN_TRANSIT, DELIVERED)");
+                        System.out.print("What should the new status be? (PACKED, IN_TRANSIT, DELIVERED): ");
                         CourierPackage.Status status = CourierPackage.Status.valueOf(sc.nextLine().trim().toUpperCase()); // valueOf to convert to objec
-                        System.out.print("New expected arrival (YYYY-MM-DD, or press Enter to skip)");
+                        System.out.print("New expected arrival (YYYY-MM-DD, or press Enter to skip): ");
                         String arr = sc.nextLine().trim();
                         LocalDate arrivalDate = arr.isEmpty() ? null : LocalDate.parse(arr);
-                        System.out.print("Note? ");
+                        System.out.print("Note: ");
                         String note = sc.nextLine().trim();
                         boolean success = service.updateStatus(id, status, arrivalDate, note);
                         System.out.println(success ? "Status updated." : "Package not found.");
@@ -78,7 +77,7 @@ public class Main {
                                     "Status", "ETA", "Last Updated");
                             System.out.println("-".repeat(121));
                             for (CourierPackage p : all) {
-                                System.out.printf("%-15s %-20s %-15s %-20s %-15s %-15s %-20s%n",
+                                System.out.printf("%-15s %-20s %-15.2f %-20s %-15s %-15s %-20s%n",
                                         p.getTrackingId(), p.getDescription(), p.getWeight(),
                                         p.getDestination(), p.getStatus(), 
                                         p.getExpectedArrivalDate(), p.getLastUpdated());
@@ -92,8 +91,7 @@ public class Main {
                                     3. Status
                                     4. ETA
                                     5. Last Updated
-                                    0. Return to Main Interface
-                                    """);
+                                    0. Return to Main Interface""");
                             String option = sc.nextLine().trim();
                             if (option.equals("0")) break;
                             all = service.sortAllPackages(option);

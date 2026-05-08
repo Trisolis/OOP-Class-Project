@@ -64,6 +64,7 @@ public class CourierPackage {
         this.lastUpdated = lastUpdated;
     }
 
+    // Functions
     public void addTrackingEvent(TrackingEvent event) {
         trackingHistory.add(event);
     }
