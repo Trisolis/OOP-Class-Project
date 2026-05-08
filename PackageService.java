@@ -31,7 +31,10 @@ public class PackageService {
     public boolean updateStatus(String trackingId, CourierPackage.Status newStatus, 
                                 LocalDate newExpectedArrivalDate, String note) {
         CourierPackage pkg = repository.findById(trackingId);
-        // if (pkg == null) return false;
+        
+        if (pkg == null) {
+            return false;
+        }
 
         pkg.setStatus(newStatus);
         pkg.setLastUpdated(LocalDateTime.now());
